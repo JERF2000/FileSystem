@@ -1,0 +1,53 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File System: EXT4</title>
+    <%- include('partials/head') %>
+</head>
+<body>
+
+    <%- include('partials/navigation') %>
+
+    <center>
+        <h1>Configuración de File System Ext4</h1>
+
+        <div class="container-custom mt-4">
+            <form method="post">
+                <div class="form-ext">
+                    <h2 class="text-center">Capacidades Físicas y Distribución Lógica</h2>
+                    
+                    <div class="mb-3">
+                        <label for="capacidadTotal" class="form-label">Capacidad Total (GB):</label>
+                        <input type="number" class="form-control" id="capacidadTotal" name="capacidadTotal" min="0" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="espacioDisponible" class="form-label">Espacio Disponible (GB):</label>
+                        <input type="number" class="form-control" id="espacioDisponible" name="espacioDisponible" min="0" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="tamañoBloque" class="form-label">Tamaño de Bloque (KB):</label>
+                        <input type="number" class="form-control" id="tamañoBloque" name="tamañoBloque" min="0" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="numInodos" class="form-label">Número de Inodos:</label>
+                        <input type="number" class="form-control" id="numInodos" name="numInodos" min="0" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="numBloquesDatos" class="form-label">Número de Bloques de Datos:</label>
+                        <input type="number" class="form-control" id="numBloquesDatos" name="numBloquesDatos" min="0" required>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="button" class="btn btn-dark me-2">Guardar Configuración</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </center>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Almacenamiento</title>
+    <%- include('partials/head') %>
+    <script>
+        function guardarSeleccion() {
+            // Obtener la opción seleccionada
+            const seleccion = document.querySelector('input[name="formatOption"]:checked').value;
+
+            // Redirigir a la página correspondiente según la opción seleccionada
+            if (seleccion === 'Fat32') {
+                window.location.href = "/configFat32";
+            } else if (seleccion === 'NTFS') {
+                window.location.href = "/configNtfs";
+            } else if (seleccion === 'EXT4') {
+                window.location.href = "/configExt4";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <%- include('partials/navigation') %>
+
+    <center>
+
+        <h1>Configuración del Sistema Operativo</h1>
+
+        <div class="container-custom mt-4">
+            <div class="storage-info text-center mb-4">
+                <div class="mb-3">
+                    <label for="total" class="form-label">Almacenamiento Total:</label>
+                    <input type="text" class="form-control" id="total" placeholder="Ingrese almacenamiento total">
+                </div>
+                <div>
+                    <label for="available" class="form-label">Almacenamiento Disponible:</label>
+                    <input type="text" class="form-control" id="available" placeholder="Ingrese almacenamiento disponible">
+                </div>
+            </div>
+        
+            <div class="row text-center formats mb-4">
+                <div class="col">
+                    <input type="radio" name="formatOption" id="fat32" value="Fat32" class="btn-check" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="fat32">
+                        <img src="/img/Fat32.png" alt="Fat32" class="img-fluid"><br>Fat32
+                    </label>
+                </div>
+                <div class="col">
+                    <input type="radio" name="formatOption" id="ntfs" value="NTFS" class="btn-check" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="ntfs">
+                        <img src="/img/Ntfs.png" alt="NTFS" class="img-fluid"><br>NTFS
+                    </label>
+                </div>
+                <div class="col">
+                    <input type="radio" name="formatOption" id="ext4" value="EXT4" class="btn-check" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="ext4">
+                        <img src="/img/Ext4.png" alt="EXT4" class="img-fluid"><br>EXT4
+                    </label>
+                </div>
+            </div>
+        
+            <div class="d-flex justify-content-center">
+                <a href="/">
+                    <button type="button" class="btn btn-dark me-2">Regresar</button>
+                </a>
+                <!-- Al presionar este botón se redirige a la página seleccionada -->
+                <button type="button" class="btn btn-dark" onclick="guardarSeleccion()">Guardar</button>
+            </div>
+        </div>
+    </center>
+    
+</body>
+</html>
