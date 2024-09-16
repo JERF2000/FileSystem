@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operación con Archivos</title>
+    <%- include('partials/head') %>
+</head>
+<body>
+    
+    <%- include('partials/navigation') %>
+
+    <center>
+
+        <h1>Emulación de File System</h1>
+
+        <div class="container-custom mt-4">
+            <form method="post">
+                <div class="form-ext">
+                    <h2 class="text-center">Operaciones con Archivos</h2>
+                    <div class="accordion" id="accordionExample">
+                        <%- include('partials/crearArchivo') %>
+                        <%- include('partials/guardarArchivo') %>
+                        <%- include('partials/eliminarArchivo') %>
+                        <%- include('partials/moverArchivo') %>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    </center>
+    
+</body>
+</html>

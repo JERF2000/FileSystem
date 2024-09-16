@@ -10,13 +10,19 @@
             // Obtener la opción seleccionada
             const seleccion = document.querySelector('input[name="formatOption"]:checked').value;
 
+            //Se almacena información en el LocalStorage
+            localStorage.setItem('formatoSeleccionado', seleccion);
+
             // Redirigir a la página correspondiente según la opción seleccionada
             if (seleccion === 'Fat32') {
                 window.location.href = "/configFat32";
+                console.log(seleccion);
             } else if (seleccion === 'NTFS') {
                 window.location.href = "/configNtfs";
+                console.log(seleccion);
             } else if (seleccion === 'EXT4') {
                 window.location.href = "/configExt4";
+                console.log(seleccion);
             }
         }
     </script>

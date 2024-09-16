@@ -6,5 +6,6 @@ router.get('/configOS', (req, res) => res.render('views/configOS'));
 router.get('/configExt4', (req, res) => res.render('views/configExt4'));
 router.get('/configFat32', (req, res) => res.render('views/configFat32'));
 router.get('/configNtfs', (req, res) => res.render('views/configNtfs'));
+router.get('/opArchivos', (req, res) => res.render('views/opArchivos'));
 
 export default router;

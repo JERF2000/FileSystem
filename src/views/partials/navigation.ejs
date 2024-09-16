@@ -1,24 +1,48 @@
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-    <div class="container-fluid">
+  <div class="container-fluid">
       <a class="navbar-brand" href="">Proyecto File System - Equipo#4</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/configOS">Configuración OS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">Configuración del Disco</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">Iniciar</a>
-          </li>
-        </ul>
+          <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/configOS">Configuración OS</a>
+              </li>
+              <li class="nav-item">
+                  <!-- Agregar el id "config-disco" al enlace -->
+                  <a class="nav-link" id="config-disco" href="">Configuración del Disco</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/opArchivos">Operación con Archivos</a>
+              </li>
+          </ul>
       </div>
-    </div>
-  </nav>
+  </div>
+</nav>
+
+<script>
+  // Agregar evento al botón "Configuración del Disco"
+  document.getElementById('config-disco').addEventListener('click', function(e) {
+      e.preventDefault(); // Evita que el enlace redirija inmediatamente
+
+      // Obtener la selección almacenada en localStorage
+      const seleccion = localStorage.getItem('formatoSeleccionado');
+
+      // Verificar la selección y redirigir a la página correspondiente
+      if (seleccion === 'Fat32') {
+          window.location.href = "/configFat32";
+      } else if (seleccion === 'NTFS') {
+          window.location.href = "/configNtfs";
+      } else if (seleccion === 'EXT4') {
+          window.location.href = "/configExt4";
+      } else {
+          // Si no hay una selección guardada, redirige a una página por defecto
+          alert('Por favor, selecciona un formato primero.');
+          window.location.href = "/configOS"; // Redirige a la configuración del sistema operativo como fallback
+      }
+  });
+</script>
