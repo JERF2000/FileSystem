@@ -82,6 +82,45 @@ export function crearArchivo(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchiv
     }
 }
 
+// Guardar Archivo
+// Guardar Archivo
+export function guardarArchivo(nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente) {
+    // Construir las rutas completas con la extensión del archivo si es un archivo, o sin extensión si es una carpeta
+    const rutaCompletaExistente = tipoArchivo === 'Carpeta'
+        ? path.join(rutaArchivoExistente, nombreArchivoExistente)
+        : path.join(rutaArchivoExistente, `${nombreArchivoExistente}.${tipoArchivo}`);
+
+    const rutaCompletaNueva = tipoArchivo === 'Carpeta'
+        ? path.join(rutaArchivoExistente, nombreArchivoNuevo)
+        : path.join(rutaArchivoExistente, `${nombreArchivoNuevo}.${tipoArchivo}`);
+
+    console.log('Ruta Completa Existente:', rutaCompletaExistente);
+    console.log('Ruta Completa Nueva:', rutaCompletaNueva);
+
+    try {
+        if (fs.existsSync(rutaCompletaExistente)) {
+            if (tipoArchivo === 'Carpeta') {
+                // Manejo para carpetas
+                fs.renameSync(rutaCompletaExistente, rutaCompletaNueva);
+                console.log(`Carpeta renombrada exitosamente de ${nombreArchivoExistente} a ${nombreArchivoNuevo}`);
+                return `Carpeta renombrada exitosamente a ${nombreArchivoNuevo}`;
+            } else {
+                // Manejo para archivos
+                fs.renameSync(rutaCompletaExistente, rutaCompletaNueva);
+                console.log(`Archivo renombrado exitosamente de ${nombreArchivoExistente}.${tipoArchivo} a ${nombreArchivoNuevo}.${tipoArchivo}`);
+                return `Archivo renombrado exitosamente a ${nombreArchivoNuevo}.${tipoArchivo}`;
+            }
+        } else {
+            return 'El archivo o carpeta no existe';
+        }
+    } catch (err) {
+        console.error('Error al renombrar el archivo o carpeta:', err);
+        return `Error al renombrar el archivo o carpeta: ${err.message}`;
+    }
+}
+
+
+
 // Eliminar Archivo
 export function eliminarArchivo(nombreArchivo, tipoArchivo, rutaArchivo) {
     // Construir la ruta completa del archivo o carpeta
@@ -114,7 +153,27 @@ export function eliminarArchivo(nombreArchivo, tipoArchivo, rutaArchivo) {
     }
 }
 
+// Mover Archivo
+export function moverArchivo(nombreArchivo, tipoArchivo, rutaActual, nuevaRuta) {
+    // Construir la ruta completa del archivo actual y de la nueva ruta
+    const rutaArchivoActual = path.join(rutaActual, `${nombreArchivo}.${tipoArchivo}`);
+    const nuevaRutaArchivo = path.join(nuevaRuta, `${nombreArchivo}.${tipoArchivo}`);
 
+    try {
+        // Verificar si el archivo existe en la ruta actual
+        if (fs.existsSync(rutaArchivoActual)) {
+            // Mover el archivo a la nueva ruta
+            fs.renameSync(rutaArchivoActual, nuevaRutaArchivo);
+            console.log(`Archivo ${nombreArchivo}.${tipoArchivo} movido a ${nuevaRutaArchivo}`);
+            return `Archivo ${nombreArchivo}.${tipoArchivo} movido exitosamente a la nueva ruta`;
+        } else {
+            return `El archivo ${nombreArchivo}.${tipoArchivo} no existe en la ruta actual`;
+        }
+    } catch (err) {
+        console.error('Error al mover el archivo:', err.message);
+        return `Error al mover el archivo: ${err.message}`;
+    }
+}
 
 
 /**

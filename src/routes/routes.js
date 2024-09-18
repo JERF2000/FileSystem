@@ -1,8 +1,10 @@
 import { Router } from "express";
 
 import { 
-    crearArchivo, 
+    crearArchivo,
+    guardarArchivo, 
     eliminarArchivo,
+    moverArchivo,
     actualizarConfiguracionOS, 
     guardarConfigExt4 
 } from '../public/javascript/gestorExt4.js';
@@ -26,11 +28,34 @@ router.post('/opArchivos', (req, res) => {
     res.status(200).send(mensaje);
 });
 
+// Ruta para guardar archivos
+router.post('/guardarArchivo', (req, res) => {
+    console.log(req.body);
+    const { nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente } = req.body;
+
+    // Llamar a la función para renombrar el archivo
+    const mensaje = guardarArchivo(nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente);
+
+    res.status(200).json({ message: mensaje });
+});
+
+
 // Ruta para eliminar archivos
 router.delete('/eliminarArchivo', (req, res) => {
     const { nombreEliminar, tipoEliminar, rutaEliminar } = req.body;
 
     const mensaje = eliminarArchivo(nombreEliminar, tipoEliminar, rutaEliminar);
+    res.status(200).json({ message: mensaje });
+});
+
+// Ruta para mover archivos
+router.post('/moverArchivo', (req, res) => {
+    console.log(req.body)
+    const { nombreArchivo, tipoArchivo, rutaArchivo, nuevaRutaArchivo } = req.body;
+
+    // Llamar a la función que moverá el archivo
+    const mensaje = moverArchivo(nombreArchivo, tipoArchivo, rutaArchivo, nuevaRutaArchivo);
+
     res.status(200).json({ message: mensaje });
 });
 
