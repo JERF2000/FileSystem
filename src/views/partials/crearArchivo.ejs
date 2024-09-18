@@ -1,21 +1,21 @@
 <div class="accordion-item">
-  <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-          Crear Archivo
-      </button>
-  </h2>
-  <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-          <form>
+    <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            Crear Archivo
+        </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <!-- Formulario para crear archivo -->
+            <form id="crearArchivoForm" action="/opArchivos" method="POST">
               <div class="mb-3">
                   <label for="nombreArchivo" class="form-label"><strong>Nombre del Archivo:</strong></label>
                   <input type="text" class="form-control" id="nombreArchivo" name="nombreArchivo" placeholder="Ingresa el nombre del archivo">
               </div>
-
+          
               <div class="mb-3">
                   <label for="tipoArchivo" class="form-label"><strong>Tipo:</strong></label>
                   <select id="tipoArchivo" class="form-select" name="tipoArchivo">
-                      <option value="carpeta">Carpeta</option>
                       <option value="txt">Texto (.txt)</option>
                       <option value="docx">Documento (.docx)</option>
                       <option value="xlsx">Hoja de Calculo (.xlsx)</option>
@@ -23,19 +23,20 @@
                       <option value="pdf">PDF (.pdf)</option>
                   </select>
               </div>
-
+          
+              <div class="mb-3">
+                  <label for="pesoArchivo" class="form-label"><strong>Peso del Archivo (KB):</strong></label>
+                  <input type="number" class="form-control" id="pesoArchivo" name="pesoArchivo" placeholder="Ingresa el peso del archivo en KB">
+              </div>
+          
               <div class="mb-3">
                   <label for="rutaArchivo" class="form-label"><strong>Ruta:</strong></label>
                   <input type="text" class="form-control" id="rutaArchivo" name="rutaArchivo" placeholder="Ingresa la dirección del archivo...">
               </div>
-
-              <div>
-                <a href="/">
-                  <button type="button" class="btn btn-dark me-2">Crear Archivo</button>
-                </a>
-              </div>
-
-          </form>
-      </div>
+          
+              <button type="submit" class="btn btn-dark me-2">Guardar Datos</button>
+          </form>                    
+              
+        </div>
+    </div>
   </div>
-</div>

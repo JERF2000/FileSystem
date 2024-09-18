@@ -18,9 +18,27 @@
                 <div class="form-ext">
                     <h2 class="text-center">Operaciones con Archivos</h2>
                     <div class="accordion" id="accordionExample">
-                        <%- include('partials/crearArchivo') %>
+                        <%- include('partials/crearArchivo') %>        
+                    </div>
+                </div>
+            </form>
+            <form method="post"></form>
+                <div class="form-ext">
+                    <div class="accordion" id="accordionExample">
                         <%- include('partials/guardarArchivo') %>
+                    </div>
+                </div>
+            </form>
+            <form method="post"></form>
+                <div class="form-ext">
+                    <div class="accordion" id="accordionExample">
                         <%- include('partials/eliminarArchivo') %>
+                    </div>
+                </div>
+            </form>
+            <form method="post"></form>
+                <div class="form-ext">
+                    <div class="accordion" id="accordionExample">
                         <%- include('partials/moverArchivo') %>
                     </div>
                 </div>
@@ -29,5 +47,74 @@
         
     </center>
     
+    <!-- JavaScript para manejar el formulario de Crear Archivo -->
+    <script>
+        document.getElementById('crearArchivoForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitar la recarga de la página
+        
+            // Obtener los valores del formulario
+            const formData = {
+                nombreArchivo: document.getElementById('nombreArchivoCrear').value,
+                tipoArchivo: document.getElementById('tipoArchivoCrear').value,
+                pesoArchivo: document.getElementById('pesoArchivoCrear').value,
+                rutaArchivo: document.getElementById('rutaArchivoCrear').value
+            };
+        
+            // Enviar la petición usando fetch
+            fetch('/opArchivos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text()) // Esperar el mensaje de éxito
+            .then(data => {
+                // Mostrar el mensaje en una ventana emergente o alerta
+                alert(data);
+                // Opcional: Limpiar el formulario después de enviar
+                document.getElementById('crearArchivoForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al guardar el archivo.');
+            });
+        });
+    </script>
+
+    <!-- JavaScript para manejar el formulario de Eliminar Archivo -->
+    <script>
+        document.getElementById('eliminarArchivoform').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitar la recarga de la página
+        
+            // Obtener los valores del formulario
+            const formData = {
+                nombreArchivo: document.getElementById('nombreArchivoEliminar').value,
+                tipoArchivo: document.getElementById('tipoArchivoEliminar').value,
+                rutaArchivo: document.getElementById('rutaArchivoEliminar').value
+            };
+        
+            // Enviar la petición usando fetch
+            fetch('/opArchivos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text()) // Esperar el mensaje de éxito
+            .then(data => {
+                // Mostrar el mensaje en una ventana emergente o alerta
+                alert(data);
+                // Opcional: Limpiar el formulario después de enviar
+                document.getElementById('eliminarArchivoform').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ocurrió un error al eliminar el archivo.');
+            });
+        });
+    </script>
+
 </body>
 </html>

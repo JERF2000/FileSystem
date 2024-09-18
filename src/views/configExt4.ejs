@@ -4,6 +4,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File System: EXT4</title>
     <%- include('partials/head') %>
+    <script>
+
+        function guardarDatos(){
+            // Obtener los valores de almacenamiento total y disponible
+        const bloque = document.getElementById('BloqueSize').value;
+        const nInodos = document.getElementById('numInodos').value;
+        const extents = document.getElementById('extents').value;
+
+        // Enviar los datos de almacenamiento al servidor
+        fetch('/guardarDatosExt4', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    bloque: bloque,
+                    nInodos: nInodos,
+                    extents: extents
+                })
+            }).then(response => response.json())
+        }
+
+    </script>
 </head>
 <body>
 
@@ -18,22 +41,22 @@
                     
                     <div class="mb-3">
                         <label for="tamañoBloque" class="form-label">Tamaño de Bloque (KB):</label>
-                        <input type="number" class="form-control" id="tamañoBloque" name="tamañoBloque" min="0" required>
+                        <input type="number" class="form-control" id="BloqueSize" name="tamañoBloque" min="0" required>
                     </div>
                     
                     <div class="mb-3">
                         <label for="numInodos" class="form-label">Número de Inodos:</label>
                         <input type="number" class="form-control" id="numInodos" name="numInodos" min="0" required>
                     </div>
-                    
+
                     <div class="mb-3">
-                        <label for="numBloquesDatos" class="form-label">Número de Bloques de Datos:</label>
-                        <input type="number" class="form-control" id="numBloquesDatos" name="numBloquesDatos" min="0" required>
+                        <label for="numBloques" class="form-label">Número de Conjunto de Bloques (Extents):</label>
+                        <input type="number" class="form-control" id="extents" name="extents" min="0" required>
                     </div>
                     
                     <div class="text-center">
                         <a href="./opArchivos">
-                            <button type="button" class="btn btn-dark me-2">Guardar Configuración</button>
+                            <button type="button" class="btn btn-dark me-2" onclick="guardarDatos()">Guardar Configuración</button>
                         </a>
                         
                     </div>

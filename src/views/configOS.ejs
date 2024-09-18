@@ -10,20 +10,37 @@
             // Obtener la opción seleccionada
             const seleccion = document.querySelector('input[name="formatOption"]:checked').value;
 
-            //Se almacena información en el LocalStorage
+            // Obtener los valores de almacenamiento total y disponible
+            const almacenamientoTotal = document.getElementById('total').value;
+            const almacenamientoDisponible = document.getElementById('available').value;
+
+            // Guardar el formato seleccionado en el localStorage
             localStorage.setItem('formatoSeleccionado', seleccion);
 
-            // Redirigir a la página correspondiente según la opción seleccionada
-            if (seleccion === 'Fat32') {
-                window.location.href = "/configFat32";
-                console.log(seleccion);
-            } else if (seleccion === 'NTFS') {
-                window.location.href = "/configNtfs";
-                console.log(seleccion);
-            } else if (seleccion === 'EXT4') {
-                window.location.href = "/configExt4";
-                console.log(seleccion);
-            }
+            // Enviar los datos de almacenamiento al servidor
+            fetch('/guardarConfiguracion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    almacenamientoTotal: almacenamientoTotal,
+                    almacenamientoDisponible: almacenamientoDisponible
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Redirigir a la página correspondiente según la opción seleccionada
+                if (seleccion === 'Fat32') {
+                    window.location.href = "/configFat32";
+                } else if (seleccion === 'NTFS') {
+                    window.location.href = "/configNtfs";
+                } else if (seleccion === 'EXT4') {
+                    window.location.href = "/configExt4";
+                }
+            })
+            .catch(error => console.error('Error:', error));
         }
     </script>
 </head>
@@ -38,11 +55,11 @@
         <div class="container-custom mt-4">
             <div class="storage-info text-center mb-4">
                 <div class="mb-3">
-                    <label for="total" class="form-label">Almacenamiento Total:</label>
+                    <label for="total" class="form-label">Almacenamiento Total (GB):</label>
                     <input type="text" class="form-control" id="total" placeholder="Ingrese almacenamiento total">
                 </div>
                 <div>
-                    <label for="available" class="form-label">Almacenamiento Disponible:</label>
+                    <label for="available" class="form-label">Almacenamiento Disponible (GB):</label>
                     <input type="text" class="form-control" id="available" placeholder="Ingrese almacenamiento disponible">
                 </div>
             </div>
@@ -72,7 +89,7 @@
                 <a href="/">
                     <button type="button" class="btn btn-dark me-2">Regresar</button>
                 </a>
-                <!-- Al presionar este botón se redirige a la página seleccionada -->
+                <!-- Al presionar este botón se envían los datos al servidor -->
                 <button type="button" class="btn btn-dark" onclick="guardarSeleccion()">Guardar</button>
             </div>
         </div>
