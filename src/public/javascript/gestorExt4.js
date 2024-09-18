@@ -1,7 +1,9 @@
 //Importando librerias de Node js
 import fs from 'fs';
 import path from 'path';
-import PDFDocument from 'pdfkit';   //Para Archivos PDF
+import XLSX from 'xlsx';            //Para Archivos .xlsx
+import PptxGenJS from 'pptxgenjs';  //Para Archivos .pptx
+import PDFDocument from 'pdfkit';   //Para Archivos .pdf
 
 //Importando clases desde la carpeta plantillas
 import { fsExt4 } from './Plantillas/fsExt4.js';
@@ -34,6 +36,33 @@ export function crearArchivo(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchiv
                 doc.text('Contenido del archivo PDF');
                 doc.end();
                 console.log('Archivo .pdf creado exitosamente en la ruta:', filePath);
+            } else if (tipoArchivo === 'xlsx') {
+                const filePath = path.join(rutaArchivo, `${nombreArchivo}.xlsx`);
+                // Crear una nueva hoja de cálculo
+                const wb = XLSX.utils.book_new();
+                // Crear una hoja de datos
+                const ws = XLSX.utils.aoa_to_sheet([
+                    ['Nombre', '#Cuenta', 'Seccion'],
+                    ['Daniel Edgardo Morales Lopez', 61811583, 'Sistemas Operativos Sec. 75'],
+                    ['Hilda Ester Melendez Henriquez', 61811583, 'Sistemas Operativos Sec. 75'],
+                    ['Jasir Esaud Reyes Figueroa', 61811583, 'Sistemas Operativos Sec. 75'],
+                    ['Yeferson Alejandro Bonilla Castillo', 61811583, 'Sistemas Operativos Sec. 75']
+                ]);
+                // Agregar la hoja al libro
+                XLSX.utils.book_append_sheet(wb, ws, 'Datos');
+                // Escribir el archivo en el sistema de archivos
+                XLSX.writeFile(wb, filePath);
+                console.log('Archivo .xlsx creado exitosamente en la ruta:', filePath);
+            } else if (tipoArchivo === 'pptx') {
+                const filePath = path.join(rutaArchivo, `${nombreArchivo}.pptx`);
+                const pptx = new PptxGenJS();
+                const slide = pptx.addSlide();
+                slide.addText('Contenido de la presentación PPTX', { x: 1, y: 1, fontSize: 18 });
+                pptx.writeFile(filePath).then(() => {
+                    console.log('Archivo .pptx creado exitosamente en la ruta:', filePath);
+                }).catch(err => {
+                    console.error('Error al crear el archivo .pptx:', err);
+                });
             } else if (tipoArchivo === 'Carpeta') {
                 const dirPath = path.join(rutaArchivo, nombreArchivo);
                 fs.mkdirSync(dirPath);
@@ -56,12 +85,11 @@ export function crearArchivo(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchiv
 // Eliminar Archivo
 export function eliminarArchivo(nombreArchivo, tipoArchivo, rutaArchivo) {
     // Construir la ruta completa del archivo o carpeta
-    const filePath = path.join(rutaArchivo, nombreArchivo);
+    const filePath = tipoArchivo === 'Carpeta'
+        ? path.join(rutaArchivo, nombreArchivo)
+        : path.join(rutaArchivo, `${nombreArchivo}.${tipoArchivo}`);
 
     try {
-        // Construir la ruta completa del archivo o carpeta
-        const filePath = path.join(rutaArchivo, `${nombreArchivo}${tipoArchivo === 'Carpeta' ? '' : `.${tipoArchivo}`}`);
-        
         // Verificar si el archivo o carpeta existe
         if (fs.existsSync(filePath)) {
             if (tipoArchivo === 'Carpeta') {
@@ -69,7 +97,7 @@ export function eliminarArchivo(nombreArchivo, tipoArchivo, rutaArchivo) {
                 fs.rmSync(filePath, { recursive: true, force: true });
                 console.log('Carpeta eliminada exitosamente:', filePath);
                 return 'Carpeta eliminada exitosamente';
-            } else if (['txt', 'docx', 'pdf'].includes(tipoArchivo)) {
+            } else if (['txt', 'docx', 'pdf', 'xlsx', 'pptx'].includes(tipoArchivo)) {
                 // Eliminar el archivo con la extensión correspondiente
                 fs.unlinkSync(filePath);
                 console.log(`Archivo .${tipoArchivo} eliminado exitosamente:`, filePath);
