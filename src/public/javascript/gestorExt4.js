@@ -39,6 +39,27 @@ export function crearArchivo(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchiv
     
 }
 
+// Eliminar Archivo
+export function eliminarArchivo(nombreArchivo, tipoArchivo, rutaArchivo) {
+    // Construir la ruta completa del archivo
+    const filePath = path.join(rutaArchivo, `${nombreArchivo}.${tipoArchivo}`);
+    
+    try {
+        // Verificar si el archivo existe
+        if (fs.existsSync(filePath)) {
+            // Eliminar el archivo
+            fs.unlinkSync(filePath);
+            console.log('Archivo eliminado exitosamente:', filePath);
+            return 'Archivo eliminado exitosamente';
+        } else {
+            return 'El archivo no existe';
+        }
+    } catch (err) {
+        console.error('Error al eliminar el archivo:', err);
+        return 'Error al eliminar el archivo';
+    }
+}
+
 
 
 

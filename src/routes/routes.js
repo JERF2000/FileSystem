@@ -2,9 +2,11 @@ import { Router } from "express";
 
 import { 
     crearArchivo, 
+    eliminarArchivo,
     actualizarConfiguracionOS, 
     guardarConfigExt4 
 } from '../public/javascript/gestorExt4.js';
+
 
 const router = Router();
 
@@ -26,9 +28,9 @@ router.post('/opArchivos', (req, res) => {
 
 // Ruta para eliminar archivos
 router.delete('/eliminarArchivo', (req, res) => {
-    const { nombreArchivo, tipoArchivo, rutaArchivo } = req.body;
+    const { nombreEliminar, tipoEliminar, rutaEliminar } = req.body;
 
-    const mensaje = eliminarArchivo(nombreArchivo, tipoArchivo, rutaArchivo);
+    const mensaje = eliminarArchivo(nombreEliminar, tipoEliminar, rutaEliminar);
     res.status(200).json({ message: mensaje });
 });
 

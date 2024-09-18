@@ -54,10 +54,10 @@
         
             // Obtener los valores del formulario
             const formData = {
-                nombreArchivo: document.getElementById('nombreArchivoCrear').value,
-                tipoArchivo: document.getElementById('tipoArchivoCrear').value,
-                pesoArchivo: document.getElementById('pesoArchivoCrear').value,
-                rutaArchivo: document.getElementById('rutaArchivoCrear').value
+                nombreArchivo: document.getElementById('nombreArchivo').value,
+                tipoArchivo: document.getElementById('tipoArchivo').value,
+                pesoArchivo: document.getElementById('pesoArchivo').value,
+                rutaArchivo: document.getElementById('rutaArchivo').value
             };
         
             // Enviar la petición usando fetch
@@ -77,44 +77,34 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Ocurrió un error al guardar el archivo.');
             });
         });
     </script>
 
     <!-- JavaScript para manejar el formulario de Eliminar Archivo -->
     <script>
-        document.getElementById('eliminarArchivoform').addEventListener('submit', function(e) {
-            e.preventDefault(); // Evitar la recarga de la página
-        
-            // Obtener los valores del formulario
-            const formData = {
-                nombreArchivo: document.getElementById('nombreArchivoEliminar').value,
-                tipoArchivo: document.getElementById('tipoArchivoEliminar').value,
-                rutaArchivo: document.getElementById('rutaArchivoEliminar').value
-            };
-        
-            // Enviar la petición usando fetch
-            fetch('/opArchivos', {
-                method: 'POST',
+        function eliminarArchivo() {
+            const nombreEliminar = document.getElementById('nombreEliminar').value;
+            const tipoEliminar = document.getElementById('tipoEliminar').value;
+            const rutaEliminar = document.getElementById('rutaEliminar').value;
+    
+            fetch('/eliminarArchivo', {
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({ nombreEliminar, tipoEliminar, rutaEliminar })
             })
-            .then(response => response.text()) // Esperar el mensaje de éxito
+            .then(response => response.json())
             .then(data => {
-                // Mostrar el mensaje en una ventana emergente o alerta
-                alert(data);
-                // Opcional: Limpiar el formulario después de enviar
-                document.getElementById('eliminarArchivoform').reset();
+                alert(data.message);
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('Ocurrió un error al eliminar el archivo.');
+                console.error('Error al eliminar el archivo:', error);
             });
-        });
+        }
     </script>
+
 
 </body>
 </html>
