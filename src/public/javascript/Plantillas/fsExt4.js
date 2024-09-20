@@ -6,6 +6,7 @@ export class fsExt4{
     constructor() {
         this.almTotal;
         this.almDisp;
+        
         this.tamBloq;
         this.nInodos;
         //Crear atributo extents
@@ -19,18 +20,6 @@ export class fsExt4{
             this.almDisp = this.almDisp - peso;
     }
 
-    eliminarArchivo(){
-
-    }
-
-    guardarArchivo(){
-
-    }
-
-    moverArchivo(){
-        
-    }
-
     configurarFileSystemExt4(bloqueSize, numInodos, cantBloques){
         this.tamBloq = bloqueSize;
         this.nInodos = numInodos;
@@ -38,8 +27,8 @@ export class fsExt4{
     }
 
     definirEspacio(sizeT, sizeD){
-        this.almTotal = sizeT * (1000 * 1000);
-        this.almDisp = sizeD * (1000 * 1000);
+        this.almTotal = sizeT;
+        this.almDisp = sizeD;
     }
 
     // Agregar un archivo al arreglo

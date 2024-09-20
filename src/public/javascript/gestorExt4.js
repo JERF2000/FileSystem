@@ -8,11 +8,10 @@ import PDFDocument from 'pdfkit';   //Para Archivos .pdf
 //Importando clases desde la carpeta plantillas
 import { fsExt4 } from './Plantillas/fsExt4.js';
 
-
 const sistema = new fsExt4();
 
 //Crear Archivo
-export function crearArchivo(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo) {
+export function crearArchivoExt4(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo) {
     if ((pesoArchivo <= sistema.almDisp) && (sistema.nInodos > 0)) {
         sistema.crearInodo(pesoArchivo, tipoArchivo);
         sistema.crearArchivo(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo);
@@ -43,10 +42,10 @@ export function crearArchivo(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchiv
                 // Crear una hoja de datos
                 const ws = XLSX.utils.aoa_to_sheet([
                     ['Nombre', '#Cuenta', 'Seccion'],
-                    ['Daniel Edgardo Morales Lopez', 61811583, 'Sistemas Operativos Sec. 75'],
-                    ['Hilda Ester Melendez Henriquez', 61811583, 'Sistemas Operativos Sec. 75'],
-                    ['Jasir Esaud Reyes Figueroa', 61811583, 'Sistemas Operativos Sec. 75'],
-                    ['Yeferson Alejandro Bonilla Castillo', 61811583, 'Sistemas Operativos Sec. 75']
+                    ['Daniel Edgardo Morales Lopez', '#00000000', 'Sistemas Operativos Sec. 75'],
+                    ['Hilda Ester Melendez Henriquez', '#11111111', 'Sistemas Operativos Sec. 75'],
+                    ['Jasir Esaud Reyes Figueroa', '#22222222', 'Sistemas Operativos Sec. 75'],
+                    ['Yeferson Alejandro Bonilla Castillo', '#33333333', 'Sistemas Operativos Sec. 75']
                 ]);
                 // Agregar la hoja al libro
                 XLSX.utils.book_append_sheet(wb, ws, 'Datos');
@@ -83,8 +82,7 @@ export function crearArchivo(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchiv
 }
 
 // Guardar Archivo
-// Guardar Archivo
-export function guardarArchivo(nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente) {
+export function guardarArchivoExt4(nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente) {
     // Construir las rutas completas con la extensión del archivo si es un archivo, o sin extensión si es una carpeta
     const rutaCompletaExistente = tipoArchivo === 'Carpeta'
         ? path.join(rutaArchivoExistente, nombreArchivoExistente)
@@ -119,10 +117,8 @@ export function guardarArchivo(nombreArchivoExistente, nombreArchivoNuevo, pesoA
     }
 }
 
-
-
 // Eliminar Archivo
-export function eliminarArchivo(nombreArchivo, tipoArchivo, rutaArchivo) {
+export function eliminarArchivoExt4(nombreArchivo, tipoArchivo, rutaArchivo) {
     // Construir la ruta completa del archivo o carpeta
     const filePath = tipoArchivo === 'Carpeta'
         ? path.join(rutaArchivo, nombreArchivo)
@@ -154,7 +150,7 @@ export function eliminarArchivo(nombreArchivo, tipoArchivo, rutaArchivo) {
 }
 
 // Mover Archivo
-export function moverArchivo(nombreArchivo, tipoArchivo, rutaActual, nuevaRuta) {
+export function moverArchivoExt4(nombreArchivo, tipoArchivo, rutaActual, nuevaRuta) {
     // Construir la ruta completa del archivo actual y de la nueva ruta
     const rutaArchivoActual = path.join(rutaActual, `${nombreArchivo}.${tipoArchivo}`);
     const nuevaRutaArchivo = path.join(nuevaRuta, `${nombreArchivo}.${tipoArchivo}`);
@@ -175,14 +171,13 @@ export function moverArchivo(nombreArchivo, tipoArchivo, rutaActual, nuevaRuta) 
     }
 }
 
-
 /**
  * Configuraciones del OS y del sistema de archivos seleccionado
  * ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
  */
 
 //Guardar configuración del OS
-export function actualizarConfiguracionOS(almacenamientoTotal, almacenamientoDisponible) {
+export function actualizarConfiguracionOSExt4(almacenamientoTotal, almacenamientoDisponible) {
     sistema.definirEspacio(almacenamientoTotal, almacenamientoDisponible);
     console.log("Espacio Total (GB):     " + sistema.almTotal);
     console.log("Espacio Disponible(GB): " + sistema.almDisp);
@@ -193,4 +188,3 @@ export function guardarConfigExt4(bloque, nInodos, extents) {
     sistema.configurarFileSystemExt4(bloque, nInodos, extents);
     //Desarrollar el atributo extents "Ver clase fsExt4"
 }
-

@@ -49,37 +49,78 @@
     
     <!-- JavaScript para manejar el formulario de Crear Archivo -->
     <script>
-        document.getElementById('crearArchivoForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Evitar la recarga de la página
-        
-            // Obtener los valores del formulario
-            const formData = {
-                nombreArchivo: document.getElementById('nombreArchivo').value,
-                tipoArchivo: document.getElementById('tipoArchivo').value,
-                pesoArchivo: document.getElementById('pesoArchivo').value,
-                rutaArchivo: document.getElementById('rutaArchivo').value
-            };
-        
+        document.getElementById('crearArchivoBtn').addEventListener('click', function(e) {
+            e.preventDefault(); // Evitar que se recargue la página al enviar el formulario
+    
+            const nombreArchivo = document.getElementById('nombreArchivo').value;
+            const tipoArchivo = document.getElementById('tipoArchivo').value;
+            const pesoArchivo = document.getElementById('pesoArchivo').value;
+            const rutaArchivo = document.getElementById('rutaArchivo').value;
+    
+            // Validar campos requeridos
+            if (!nombreArchivo || !pesoArchivo || !rutaArchivo) {
+                alert("Por favor, completa todos los campos");
+                return;
+            }
+    
             // Enviar la petición usando fetch
-            fetch('/opArchivos', {
+            fetch('/crearArchivo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({ nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo })
             })
-            .then(response => response.text()) // Esperar el mensaje de éxito
+            .then(response => response.json())
             .then(data => {
-                // Mostrar el mensaje en una ventana emergente o alerta
-                alert(data);
-                // Opcional: Limpiar el formulario después de enviar
-                document.getElementById('crearArchivoForm').reset();
+                // Mostrar el mensaje de éxito en una alerta
+                alert(data.message);
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error al crear archivo:', error);
             });
         });
     </script>
+    
+    <!-- JavaScript para manejar el formulario de Guardar/Reemplazar Archivo -->
+    <script>
+        document.getElementById('guardarArchivoBtn').addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          const nombreArchivoExistente = document.getElementById('nombreArchivoExistente').value;
+          const tipoArchivo = document.getElementById('tipoArchivo').value;
+          const rutaArchivoExistente = document.getElementById('rutaArchivoExistente').value;
+          const nombreArchivoNuevo = document.getElementById('nombreArchivoNuevo').value;
+          const pesoArchivoNuevo = document.getElementById('pesoArchivoNuevo').value;
+      
+          if (!nombreArchivoExistente || !nombreArchivoNuevo || !pesoArchivoNuevo) {
+            alert('Por favor, completa todos los campos.');
+            return;
+          }
+      
+          fetch('/guardarArchivo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              nombreArchivoExistente,
+              tipoArchivo,
+              rutaArchivoExistente,
+              nombreArchivoNuevo,
+              pesoArchivoNuevo
+            }),
+          })
+          .then(response => response.json())
+          .then(data => {
+            alert(data.message); // Mostrar alerta de éxito
+          })
+          .catch(error => {
+            console.error('Error:', error); // Mostrar error en la consola
+          });
+        });
+      </script>
+      
 
     <!-- JavaScript para manejar el formulario de Eliminar Archivo -->
     <script>
@@ -101,48 +142,6 @@
             })
             .catch(error => {
                 console.error('Error al eliminar el archivo:', error);
-            });
-        }
-    </script>
-
-    <!-- JavaScript para manejar el formulario de Guardar/Reemplazar Archivo -->
-    <script>
-        function guardarArchivo(){
-            document.getElementById('guardarCambiosBtn').addEventListener('click', function() {
-            // Capturamos los valores de los campos
-            const nombreArchivoExistente = document.getElementById('nombreArchivoExistente').value;
-            const tipoArchivo = document.getElementById('tipoArchivo').value;
-            const rutaArchivoExistente = document.getElementById('rutaArchivoExistente').value;
-            const nombreArchivoNuevo = document.getElementById('nombreArchivoNuevo').value;
-            const pesoArchivoNuevo = document.getElementById('pesoArchivoNuevo').value;
-
-            // Validamos que se hayan ingresado los datos necesarios
-            if (!nombreArchivoExistente || !nombreArchivoNuevo || !pesoArchivoNuevo) {
-            alert('Por favor, completa todos los campos.');
-            return;
-            }
-
-            // Enviamos la solicitud POST con los datos
-            fetch('/guardarArchivo', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                nombreArchivoExistente,
-                tipoArchivo,
-                rutaArchivoExistente,
-                nombreArchivoNuevo,
-                pesoArchivoNuevo
-            }),
-            })
-            .then(response => response.json())
-            .then(data => {
-            console.log('Archivo guardado:', data);
-            })
-            .catch((error) => {
-            console.error('Error:', error);
-                });
             });
         }
     </script>

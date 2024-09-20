@@ -6,8 +6,7 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-            <!-- Formulario para crear archivo -->
-            <form id="crearArchivoForm" action="/opArchivos" method="POST">
+            <form id="crearArchivoForm">
               <div class="mb-3">
                   <label for="nombreArchivo" class="form-label"><strong>Nombre del Archivo:</strong></label>
                   <input type="text" class="form-control" id="nombreArchivo" name="nombreArchivo" placeholder="Ingresa el nombre del archivo">
@@ -35,9 +34,8 @@
                   <input type="text" class="form-control" id="rutaArchivo" name="rutaArchivo" placeholder="Ingresa la dirección del archivo...">
               </div>
           
-              <button type="submit" class="btn btn-dark me-2">Guardar Datos</button>
+              <button type="button" id="crearArchivoBtn" class="btn btn-dark me-2">Guardar Datos</button>
           </form>                    
-              
         </div>
     </div>
-  </div>
+</div>

@@ -4,6 +4,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File System: Fat32</title>
     <%- include('partials/head') %>
+    <script>
+
+        function guardarDatosFat32(){
+        const cluster = document.getElementById('cluster').value;
+        const numFat = document.getElementById('numFat').value;
+        const nEntradasD = document.getElementById('numEntradasDirectorio').value;
+        const soporteLFN = document.getElementById('soporteLongFileName').value;
+
+        // Enviar los datos de almacenamiento al servidor
+        fetch('/guardarDatosFat32', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    cluster: cluster,
+                    numFat: numFat,
+                    nEntradasD: nEntradasD,
+                    soporteLFN: soporteLFN
+                })
+            }).then(response => response.json())
+        }
+
+    </script>
 </head>
 <body>
 
@@ -13,12 +37,12 @@
         <h1>Configuración de File System Fat32</h1>
 
         <div class="container-custom mt-4">
-            <form action="procesar_configuracion_fat32.php" method="post">
+            <form method="post">
                 <div class="form-fat32">
                     
                     <div class="mb-3">
                         <label for="tamañoCluster" class="form-label">Tamaño de Cluster (KB):</label>
-                        <input type="number" class="form-control" id="tamañoCluster" name="tamañoCluster" min="0" required>
+                        <input type="number" class="form-control" id="cluster" name="cluster" min="0" required>
                     </div>
 
                     <div class="mb-3">
@@ -33,14 +57,16 @@
                     
                     <div class="mb-3">
                         <label for="soporteLongFileName" class="form-label">Soporte para Long File Name (LFN):</label>
-                        <select id="soporteLongFileName" name="soporteLongFileName" class="form-select" required>
+                        <select id="soporteLongFileName" name="LongFileName" class="form-select" required>
                             <option value="si">Sí</option>
                             <option value="no">No</option>
                         </select>
                     </div>
                     
                     <div class="text-center">
-                        <button type="button" class="btn btn-dark me-2">Guardar Configuración</button>
+                        <a href="./opArchivos">
+                            <button type="button" class="btn btn-dark me-2" onclick="guardarDatosFat32()">Guardar Configuración</button>
+                        </a>
                     </div>
                 </div>
             </form>
