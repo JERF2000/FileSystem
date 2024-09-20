@@ -77,7 +77,7 @@ router.post('/guardarDatosFat32', (req, res) => {
 
     guardarConfigFat32(Number(cluster), Number(numFat), Number(nEntradasD), Number(soporteLFN));
 
-    res.status(200).json({ message: mensaje });
+    res.json({ message: 'Configuración guardada exitosamente' });
 });
 
 // Ruta para crear archivos FAT32
