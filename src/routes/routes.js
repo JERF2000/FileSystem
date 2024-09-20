@@ -81,7 +81,8 @@ router.post('/guardarDatosFat32', (req, res) => {
 });
 
 // Ruta para crear archivos FAT32
-router.post('/crearArchivoForm', (req, res) => {
+router.post('/crearArchivo', (req, res) => {
+    console.log(req.body);
     const { nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo } = req.body;
 
     const mensaje = crearArchivoFat32(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo);
@@ -100,11 +101,11 @@ router.post('/guardarArchivo', (req, res) => {
 });
 
 // Ruta para eliminar archivos FAT32
-router.post('/crearArchivo', (req, res) => {
+router.post('/eliminarArchivo', (req, res) => {
     console.log(req.body);
     const { nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo } = req.body;
 
-    const mensaje = crearArchivoFat32(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo);
+    const mensaje = eliminarArchivoFat32(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo);
     
     res.status(200).json({ message: mensaje });
 });
@@ -137,7 +138,7 @@ router.post('/guardarDatosNtfs', (req, res) => {
 });
 
 // Ruta para crear archivos NTFS
-router.post('/opArchivos', (req, res) => {
+router.post('/crearArchivo', (req, res) => {
     console.log(req.body);
     const { nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo } = req.body;
 
@@ -193,7 +194,7 @@ router.post('/guardarDatosExt4', (req, res) => {
 });
 
 // Ruta para crear archivos EXT4
-router.post('/opArchivos', (req, res) => {
+router.post('/crearArchivo', (req, res) => {
     console.log(req.body);
     const { nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo } = req.body;
 
