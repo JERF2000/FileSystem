@@ -77,19 +77,16 @@ export function crearArchivoFat32(nombreArchivo, tipoArchivo, pesoArchivo, rutaA
 }
 
 // Guardar Archivo
-export function guardarArchivoFat32(nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente) {
+export function guardarArchivoFat32(nombreArchivoExistente, nombreArchivoNuevo, tipoArchivo, rutaArchivoExistente) {
     // Construir las rutas completas con la extensión del archivo si es un archivo, o sin extensión si es una carpeta
     const rutaCompletaExistente = tipoArchivo === 'Carpeta'
         ? path.join(rutaArchivoExistente, nombreArchivoExistente)
         : path.join(rutaArchivoExistente, `${nombreArchivoExistente}.${tipoArchivo}`);
-
     const rutaCompletaNueva = tipoArchivo === 'Carpeta'
         ? path.join(rutaArchivoExistente, nombreArchivoNuevo)
         : path.join(rutaArchivoExistente, `${nombreArchivoNuevo}.${tipoArchivo}`);
-
     console.log('Ruta Completa Existente:', rutaCompletaExistente);
     console.log('Ruta Completa Nueva:', rutaCompletaNueva);
-
     try {
         if (fs.existsSync(rutaCompletaExistente)) {
             if (tipoArchivo === 'Carpeta') {
@@ -113,25 +110,21 @@ export function guardarArchivoFat32(nombreArchivoExistente, nombreArchivoNuevo, 
 }
 
 // Eliminar Archivo
-export function eliminarArchivoFat32(nombreArchivo, tipoArchivo, rutaArchivo) {
-    // Construir la ruta completa del archivo o carpeta
-    const filePath = tipoArchivo === 'Carpeta'
-        ? path.join(rutaArchivo, nombreArchivo)
-        : path.join(rutaArchivo, `${nombreArchivo}.${tipoArchivo}`);
+export function eliminarArchivoFat32(nombreEliminar, tipoEliminar, rutaEliminar) {
+    const filePath = tipoEliminar === 'Carpeta'
+        ? path.join(rutaEliminar, nombreEliminar)
+        : path.join(rutaEliminar, `${nombreEliminar}.${tipoEliminar}`);
 
     try {
-        // Verificar si el archivo o carpeta existe
         if (fs.existsSync(filePath)) {
-            if (tipoArchivo === 'Carpeta') {
-                // Eliminar la carpeta
+            if (tipoEliminar === 'Carpeta') {
                 fs.rmSync(filePath, { recursive: true, force: true });
                 console.log('Carpeta eliminada exitosamente:', filePath);
                 return 'Carpeta eliminada exitosamente';
-            } else if (['txt', 'docx', 'pdf', 'xlsx', 'pptx'].includes(tipoArchivo)) {
-                // Eliminar el archivo con la extensión correspondiente
+            } else if (['txt', 'docx', 'pdf', 'xlsx', 'pptx'].includes(tipoEliminar)) {
                 fs.unlinkSync(filePath);
-                console.log(`Archivo .${tipoArchivo} eliminado exitosamente:`, filePath);
-                return `Archivo .${tipoArchivo} eliminado exitosamente`;
+                console.log(`Archivo .${tipoEliminar} eliminado exitosamente:`, filePath);
+                return `Archivo .${tipoEliminar} eliminado exitosamente`;
             } else {
                 return 'Tipo de archivo no soportado';
             }
@@ -143,6 +136,7 @@ export function eliminarArchivoFat32(nombreArchivo, tipoArchivo, rutaArchivo) {
         return 'Error al eliminar el archivo o carpeta';
     }
 }
+
 
 // Mover Archivo
 export function moverArchivoFat32(nombreArchivo, tipoArchivo, rutaActual, nuevaRuta) {

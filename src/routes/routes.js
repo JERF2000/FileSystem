@@ -81,7 +81,7 @@ router.post('/guardarDatosFat32', (req, res) => {
 });
 
 // Ruta para crear archivos FAT32
-router.post('/crearArchivo', (req, res) => {
+router.post('/crearArchivoFat32', (req, res) => {
     console.log(req.body);
     const { nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo } = req.body;
 
@@ -91,27 +91,27 @@ router.post('/crearArchivo', (req, res) => {
 });
 
 // Ruta para guardar archivos FAT32
-router.post('/guardarArchivo', (req, res) => {
+router.post('/guardarArchivoFat32', (req, res) => {
     console.log(req.body);
-    const { nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente } = req.body;
+    const { nombreArchivoExistente, nombreArchivoNuevo, tipoArchivo, rutaArchivoExistente } = req.body;
 
-    const mensaje = guardarArchivoFat32(nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente);
+    const mensaje = guardarArchivoFat32(nombreArchivoExistente, nombreArchivoNuevo, tipoArchivo, rutaArchivoExistente);
 
     res.status(200).json({ message: mensaje });
 });
 
 // Ruta para eliminar archivos FAT32
-router.post('/eliminarArchivo', (req, res) => {
+router.delete('/eliminarArchivoFat32', (req, res) => {
     console.log(req.body);
-    const { nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo } = req.body;
+    const { nombreEliminar, tipoEliminar, rutaEliminar } = req.body;
 
-    const mensaje = eliminarArchivoFat32(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo);
+    const mensaje = eliminarArchivoFat32(nombreEliminar, tipoEliminar, rutaEliminar);
     
     res.status(200).json({ message: mensaje });
 });
 
 // Ruta para mover archivos FAT32
-router.post('/moverArchivo', (req, res) => {
+router.post('/moverArchivoFat32', (req, res) => {
     console.log(req.body)
     const { nombreArchivo, tipoArchivo, rutaArchivo, nuevaRutaArchivo } = req.body;
 
@@ -137,29 +137,31 @@ router.post('/guardarDatosNtfs', (req, res) => {
     res.json({ message: 'Configuración guardada exitosamente' });
 });
 
-// Ruta para crear archivos NTFS
-router.post('/crearArchivo', (req, res) => {
+router.post('/crearArchivoNTFS', (req, res) => {
     console.log(req.body);
     const { nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo } = req.body;
 
     const mensaje = crearArchivoNtfs(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo);
 
-    res.status(200).send(mensaje);
+    // Enviar un objeto JSON como respuesta
+    res.status(200).json({ message: mensaje });
 });
 
-// Ruta para guardar archivos NTFS
-router.post('/guardarArchivo', (req, res) => {
-    console.log(req.body);
-    const { nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente } = req.body;
 
-    const mensaje = guardarArchivoNtfs(nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente);
+// Ruta para guardar archivos NTFS
+router.post('/guardarArchivoNtfs', (req, res) => {
+    console.log(req.body);
+    const { nombreArchivoExistente, nombreArchivoNuevo, tipoArchivo, rutaArchivoExistente } = req.body;
+
+    const mensaje = guardarArchivoNtfs(nombreArchivoExistente, nombreArchivoNuevo, tipoArchivo, rutaArchivoExistente);
 
     res.status(200).json({ message: mensaje });
 });
 
 
 // Ruta para eliminar archivos NTFS
-router.delete('/eliminarArchivo', (req, res) => {
+router.delete('/eliminarArchivoNtfs', (req, res) => {
+    console.log(req.body);
     const { nombreEliminar, tipoEliminar, rutaEliminar } = req.body;
 
     const mensaje = eliminarArchivoNtfs(nombreEliminar, tipoEliminar, rutaEliminar);
@@ -168,7 +170,7 @@ router.delete('/eliminarArchivo', (req, res) => {
 });
 
 // Ruta para mover archivos NTFS
-router.post('/moverArchivo', (req, res) => {
+router.post('/moverArchivoNtfs', (req, res) => {
     console.log(req.body)
     const { nombreArchivo, tipoArchivo, rutaArchivo, nuevaRutaArchivo } = req.body;
 
@@ -194,28 +196,28 @@ router.post('/guardarDatosExt4', (req, res) => {
 });
 
 // Ruta para crear archivos EXT4
-router.post('/crearArchivo', (req, res) => {
+router.post('/crearArchivoExt4', (req, res) => {
     console.log(req.body);
     const { nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo } = req.body;
 
     const mensaje = crearArchivoExt4(nombreArchivo, tipoArchivo, pesoArchivo, rutaArchivo);
-
-    res.status(200).send(mensaje);
+    
+    res.status(200).json({ message: mensaje });
 });
 
 // Ruta para guardar archivos EXT4
-router.post('/guardarArchivo', (req, res) => {
+router.post('/guardarArchivoExt4', (req, res) => {
     console.log(req.body);
-    const { nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente } = req.body;
+    const { nombreArchivoExistente, nombreArchivoNuevo, tipoArchivo, rutaArchivoExistente } = req.body;
 
-    const mensaje = guardarArchivoExt4(nombreArchivoExistente, nombreArchivoNuevo, pesoArchivoNuevo, tipoArchivo, rutaArchivoExistente);
+    const mensaje = guardarArchivoExt4(nombreArchivoExistente, nombreArchivoNuevo, tipoArchivo, rutaArchivoExistente);
 
     res.status(200).json({ message: mensaje });
 });
 
 
 // Ruta para eliminar archivos EXT4
-router.delete('/eliminarArchivo', (req, res) => {
+router.delete('/eliminarArchivoExt4', (req, res) => {
     const { nombreEliminar, tipoEliminar, rutaEliminar } = req.body;
 
     const mensaje = eliminarArchivoExt4(nombreEliminar, tipoEliminar, rutaEliminar);
@@ -224,7 +226,7 @@ router.delete('/eliminarArchivo', (req, res) => {
 });
 
 // Ruta para mover archivos EXT4
-router.post('/moverArchivo', (req, res) => {
+router.post('/moverArchivoExt4', (req, res) => {
     console.log(req.body)
     const { nombreArchivo, tipoArchivo, rutaArchivo, nuevaRutaArchivo } = req.body;
 

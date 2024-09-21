@@ -7,15 +7,15 @@
   <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
     <div class="accordion-body">
 
-      <form action="/moverArchivo" method="POST">
+      <form id="moverArchivoForm">
         <div class="mb-3">
-          <label for="nombreArchivo" class="form-label"><strong>Nombre del Archivo:</strong></label>
-          <input type="text" class="form-control" id="nombreArchivo" name="nombreArchivo" placeholder="Ingresa el nombre del archivo" required>
+          <label for="MovernombreArchivo" class="form-label"><strong>Nombre del Archivo:</strong></label>
+          <input type="text" class="form-control" id="MovernombreArchivo" name="nombreArchivo" placeholder="Ingresa el nombre del archivo" required>
         </div>
 
         <div class="mb-3">
           <label for="tipoArchivo" class="form-label"><strong>Tipo:</strong></label>
-          <select id="tipoArchivo" class="form-select" name="tipoArchivo" required>
+          <select id="MovertipoArchivo" class="form-select" name="tipoArchivo" required>
               <option value="carpeta">Carpeta</option>
               <option value="txt">Texto (.txt)</option>
               <option value="docx">Documento (.docx)</option>
@@ -26,19 +26,22 @@
         </div>
 
         <div class="mb-3">
-          <label for="rutaArchivo" class="form-label"><strong>Ruta Actual:</strong></label>
-          <input type="text" class="form-control" id="rutaArchivo" name="rutaArchivo" placeholder="Ingresa la dirección actual del archivo..." required>
+          <label for="MoverrutaArchivo" class="form-label"><strong>Ruta Actual:</strong></label>
+          <input type="text" class="form-control" id="MoverrutaArchivo" name="rutaArchivo" placeholder="Ingresa la dirección actual del archivo..." required>
         </div>
 
         <div class="mb-3">
-          <label for="nuevaRutaArchivo" class="form-label"><strong>Ruta Nueva:</strong></label>
-          <input type="text" class="form-control" id="nuevaRutaArchivo" name="nuevaRutaArchivo" placeholder="Ingresa la nueva dirección para mover el archivo..." required>
+          <label for="MovernuevaRutaArchivo" class="form-label"><strong>Ruta Nueva:</strong></label>
+          <input type="text" class="form-control" id="MovernuevaRutaArchivo" name="nuevaRutaArchivo" placeholder="Ingresa la nueva dirección para mover el archivo..." required>
         </div>
 
         <div>
           <button type="submit" class="btn btn-dark me-2">Mover Archivo</button>
         </div>
       </form>
+
+      <!-- Div para mostrar la respuesta del servidor -->
+      <div id="respuestaServidor"></div>
 
     </div>
   </div>

@@ -1,52 +1,43 @@
 <div class="accordion-item">
-  <h2 class="accordion-header">
-      <button class="accordion-button collapsed custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Guardar / Reemplazar Archivo
-      </button>
-  </h2>
-  <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-          <div class="operation-content" id="guardarArchivo">
-              <form action="/guardarArchivo" method="POST">
-                  <div class="mb-3">
-                      <label for="nombreArchivoExistente" class="form-label"><strong>Nombre del Archivo Existente:</strong></label>
-                      <input type="text" class="form-control" id="nombreArchivoExistente" name="nombreArchivoExistente" placeholder="Ingresa el nombre del archivo existente">
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="tipoArchivo" class="form-label"><strong>Tipo:</strong></label>
-                    <select id="tipoArchivo" class="form-select" name="tipoArchivo">
-                        <option value="Carpeta">Carpeta</option>
-                        <option value="txt">Texto (.txt)</option>
-                        <option value="docx">Documento (.docx)</option>
-                        <option value="xlsx">Hoja de Cálculo (.xlsx)</option>
-                        <option value="pptx">Presentación (.pptx)</option>
-                        <option value="pdf">PDF (.pdf)</option>
-                    </select>
-                </div>
-                
-
-                  <div class="mb-3">
-                    <label for="rutaArchivoExistente" class="form-label"><strong>Ruta:</strong></label>
-                    <input type="text" class="form-control" id="rutaArchivoExistente" name="rutaArchivoExistente" placeholder="Ingresa la dirección del archivo...">
-                   </div>
-                
-
-                  <div class="mb-3">
-                      <label for="nombreArchivoNuevo" class="form-label"><strong>Nombre del Archivo Nuevo:</strong></label>
-                      <input type="text" class="form-control" id="nombreArchivoNuevo" name="nombreArchivoNuevo" placeholder="Ingresa el nombre del archivo nuevo">
-                  </div>
-
-                  <div class="mb-3">
-                      <label for="pesoArchivoNuevo" class="form-label"><strong>Peso del Archivo Nuevo (KB):</strong></label>
-                      <input type="text" class="form-control" id="pesoArchivoNuevo" name="pesoArchivoNuevo" placeholder="Ingresa el peso del archivo nuevo (en KB)">
-                  </div>
-
-                  <div>
-                      <button type="submit" class="btn btn-dark me-2">Guardar Cambios</button>
-                  </div>
-              </form>
-          </div>
-      </div>
+    <h2 class="accordion-header">
+        <button class="accordion-button collapsed custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Guardar / Reemplazar Archivo
+        </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <div class="operation-content" id="guardarArchivo">
+                <form id="guardarArchivoForm">
+                    <div class="mb-3">
+                        <label for="nombreArchivoExistente" class="form-label"><strong>Nombre del Archivo Existente:</strong></label>
+                        <input type="text" class="form-control" id="nombreArchivoExistente" placeholder="Ingresa el nombre del archivo existente" required>
+                    </div>
+              
+                    <div class="mb-3">
+                        <label for="tipoArchivo" class="form-label"><strong>Tipo:</strong></label>
+                        <select id="tipoArchivoGuardar" class="form-select" required>
+                            <option value="Carpeta">Carpeta</option>
+                            <option value="txt">Texto (.txt)</option>
+                            <option value="docx">Documento (.docx)</option>
+                            <option value="xlsx">Hoja de Cálculo (.xlsx)</option>
+                            <option value="pptx">Presentación (.pptx)</option>
+                            <option value="pdf">PDF (.pdf)</option>
+                        </select>
+                    </div>
+              
+                    <div class="mb-3">
+                        <label for="rutaArchivoExistente" class="form-label"><strong>Ruta:</strong></label>
+                        <input type="text" class="form-control" id="rutaArchivoExistente" placeholder="Ingresa la dirección del archivo..." required>
+                    </div>
+              
+                    <div class="mb-3">
+                        <label for="nombreArchivoNuevo" class="form-label"><strong>Nombre del Archivo Nuevo:</strong></label>
+                        <input type="text" class="form-control" id="nombreArchivoNuevo" placeholder="Ingresa el nombre del archivo nuevo" required>
+                    </div>
+              
+                    <button id="guardarArchivoBtn" type="submit" class="btn btn-dark me-2">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
